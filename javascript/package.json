@@ -1,0 +1,15 @@
+{
+  "name": "sweet_company",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sweet_company.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --experimental-modules"
+  },
+  "author": "Angelo Moreira",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "mocha": "^7.1.2"
+  }
+}
