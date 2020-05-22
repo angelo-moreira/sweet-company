@@ -1,4 +1,7 @@
+import time
 from sweet_company import SweetCompany
+
+t0 = time.time()
 
 packs = [250, 500, 1000, 2000, 5000]
 solution = SweetCompany(packs)
@@ -55,3 +58,8 @@ solution = SweetCompany(packs)
 right_ans = [200, 200, 200]
 ans = solution.order(600)
 print(right_ans == ans)
+
+
+t1 = time.time()
+total = t1-t0
+print("tests took: ", total)
