@@ -19,37 +19,47 @@ class SweetCompany:
         if amount == 0:
             return []
 
-        if amount < self.pack_sizes[0]:
-            return [self.pack_sizes[0]]
-
+        # if any of the packs matches then it's definitely our optimal solution
+        # if not let's get all the packs that are less than the amount to save computation
         (matching, qualifying_packs) = self._qualifying_packs(amount)
         if matching:
             return qualifying_packs
 
-        pointer = len(qualifying_packs) - 1
+        # We will need 2 pointers to use the sliding_window technique
+        pointer_end = len(qualifying_packs) - 1
+        pointer_start = len(qualifying_packs) - 1
 
         possible_solutions = []
         solution = []
         total = 0
 
-        while pointer > -1:
-            curr_pack = qualifying_packs[pointer]
+        while pointer_end > -1:
+            curr_pack = qualifying_packs[pointer_start]
 
             solution.append(curr_pack)
             total += curr_pack
 
             if total >= amount:
                 order = Order(amount, total, [pack for pack in solution])
+                # Here we could
                 possible_solutions.append(order)
 
                 solution.pop()
                 total -= curr_pack
-                pointer -= 1
+                pointer_start -= 1
+
+                # the pointer start has been travelling down the list to find matching combination
+                # it is now at the start of the list so we want to bring the end_pointer down
+                if pointer_start == -1:
+                    pointer_end -= 1
+                    pointer_start = pointer_end
+                    solution = []
+                    total = 0
                 continue
 
         return self._optimum_solution(possible_solutions)
 
-    # min is not going to achieve what we want GET RID OF IT
+    # returns the solution where there is less spilage possible delivering the less packs as possible between all the possible combinations
     def _optimum_solution(self, maybes):
         solution = maybes.pop()
 
