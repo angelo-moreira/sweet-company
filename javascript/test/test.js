@@ -54,7 +54,7 @@ const test_data = [
 ];
 
 test_data.forEach(({ packs, inputs, debug }) => {
-  describe(`packs are ${inputs}`, () => {
+  describe(`packs are ${packs}`, () => {
     const solution = SweetCompany(packs);
 
     inputs.forEach(({ param, ans, debug }) => {
